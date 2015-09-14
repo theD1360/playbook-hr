@@ -63,7 +63,7 @@ class Applicant {
      * @return mixed
      */
     public function __get($key){
-        $accessor_name = "get".ucwords($key)."Attribute";
+        $accessor_name = self::toCamelCase("get_{$key}_attribute");
         if(method_exists($this, $accessor_name)) {
             $value = $this->{$accessor_name}($this->props[$key]);
         } else {
@@ -74,7 +74,7 @@ class Applicant {
     }
 
     public function __set($key, $value){
-        $mutator_name = "set".ucwords($key)."Attribute";
+        $mutator_name =self::toCamelCase("set_{$key}_attribute");
         if(method_exists($this, $mutator_name)) {
             $value = $this->{$mutator_name}($key, $value);
         } else {
@@ -82,6 +82,18 @@ class Applicant {
         }
 
         return $value;
+    }
+
+    /**
+     * helper method to return camelcase string
+     * @param $word
+     * @return mixed
+     */
+    public static function toCamelCase($val)
+    {
+        $val = str_replace(' ', '', ucwords(str_replace('_', ' ', $val)));
+        $val = strtolower(substr($val,0,1)).substr($val,1);
+        return $val;
     }
 
     public function fetch(){
@@ -140,7 +152,7 @@ class Applicant {
             $props = $props->toArray();
         }
 
-        $props = array_merge($this->__defaultProps, $props);
+        $props = array_merge($this->__defaultProps, $this->props, $props);
 
         if (is_array($props) && !empty($props)) {
             foreach($props as $k=>$v){
