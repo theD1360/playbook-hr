@@ -44,12 +44,13 @@ class Applicant {
     public function __call($method, $params)
     {
         if(preg_match("/^(set|get)([\w]*)$/", $method, $matches)){
+            $item = self::toSnakeCase($matches[2]);
             switch ($matches[1]) {
                 case "set":
-                    return $this->{$matches[2]} = $params[0];
+                    return $this->{$item} = $params[0];
                 break;
                 case "get":
-                    return $this->{$matches};
+                    return $this->{$item};
                 break;
             }
         }
@@ -58,7 +59,8 @@ class Applicant {
     }
 
     /**
-     * dynamic getter to use $props and pass through
+     * dynamic getter to use $props and pass through a accessor method if available
+     *
      * @param $key
      * @return mixed
      */
@@ -73,8 +75,16 @@ class Applicant {
         return $value;
     }
 
+    /**
+     * dynamic setter that allows us to create setter methods and pass through
+     * mutator methods if available
+     *
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
     public function __set($key, $value){
-        $mutator_name =self::toCamelCase("set_{$key}_attribute");
+        $mutator_name = self::toCamelCase("set_{$key}_attribute");
         if(method_exists($this, $mutator_name)) {
             $value = $this->{$mutator_name}($key, $value);
         } else {
@@ -82,6 +92,16 @@ class Applicant {
         }
 
         return $value;
+    }
+
+    /**
+     * snake_case helper turns camelCase to snake_case
+     * @param $val
+     * @return string
+     */
+    public static function toSnakeCase($val)
+    {
+        return ltrim(strtolower(preg_replace('/[A-Z]/', '_$0', $val)), '_');
     }
 
     /**

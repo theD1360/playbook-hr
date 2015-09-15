@@ -1,7 +1,6 @@
 <?php
 
 use Playbook\Client;
-use Faker\Factory;
 use Playbook\Applicant;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
@@ -198,6 +197,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
 
     }
-
-
 }
