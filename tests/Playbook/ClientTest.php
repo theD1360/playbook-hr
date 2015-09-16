@@ -1,7 +1,7 @@
 <?php
 
-use Playbook\Client;
 use Playbook\Applicant;
+use Playbook\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,47 +9,48 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     const PLAYBOOK_USER = "favortest";
 
     protected static $fakeApplicants = [
-            "Mueller.Melisa@Mraz.com" => [
-                    "name" => "Freeda O'Keefe",
-                    "email" => "Mueller.Melisa@Mraz.com",
-                    "address" => "267 Welch Ville Suite 309",
-                    "phone" => "(206)798-6233",
-            ],
-            "Columbus23@gmail.com" =>  [
-                "name" => "Vicenta Murray",
-                "email" => "Columbus23@gmail.com",
-                "address" => "214 Turcotte Rue",
-                "phone" => "470-519-6679x40315",
-            ],
-            "Trystan.Pfannerstill@Oberbrunner.com" =>  [
-                "name" => "Dr. Candido Reichel",
-                "email" => "Trystan.Pfannerstill@Oberbrunner.com",
-                "address" => "57832 Huel Cove",
-                "phone" => "01200755871",
-            ],
-            "Alek21@Gerlach.com" => [
-                "name" => "Chaya Glover",
-                "email" => "Alek21@Gerlach.com",
-                "address" => "69373 Florida Junction",
-                "phone" => "929-167-0619x9496",
-            ],
-            "tMcLaughlin@Corwin.com" => [
-                "name" => "Miss Mercedes Schumm",
-                "email" => "tMcLaughlin@Corwin.com",
-                "address" => "4962 Luigi Road",
-                "phone" => "820-352-0092",
-            ],
-            "qFarrell@hotmail.com" => [
-                "name" => "Ryder Stokes PhD",
-                "email" => "qFarrell@hotmail.com",
-                "address" => "661 Wolff Turnpike",
-                "phone" => "1-197-874-9978x7263",
-            ]
-        ];
+        "Mueller.Melisa@Mraz.com" => [
+            "name" => "Freeda O'Keefe",
+            "email" => "Mueller.Melisa@Mraz.com",
+            "address" => "267 Welch Ville Suite 309",
+            "phone" => "(206)798-6233",
+        ],
+        "Columbus23@gmail.com" => [
+            "name" => "Vicenta Murray",
+            "email" => "Columbus23@gmail.com",
+            "address" => "214 Turcotte Rue",
+            "phone" => "470-519-6679x40315",
+        ],
+        "Trystan.Pfannerstill@Oberbrunner.com" => [
+            "name" => "Dr. Candido Reichel",
+            "email" => "Trystan.Pfannerstill@Oberbrunner.com",
+            "address" => "57832 Huel Cove",
+            "phone" => "01200755871",
+        ],
+        "Alek21@Gerlach.com" => [
+            "name" => "Chaya Glover",
+            "email" => "Alek21@Gerlach.com",
+            "address" => "69373 Florida Junction",
+            "phone" => "929-167-0619x9496",
+        ],
+        "tMcLaughlin@Corwin.com" => [
+            "name" => "Miss Mercedes Schumm",
+            "email" => "tMcLaughlin@Corwin.com",
+            "address" => "4962 Luigi Road",
+            "phone" => "820-352-0092",
+        ],
+        "qFarrell@hotmail.com" => [
+            "name" => "Ryder Stokes PhD",
+            "email" => "qFarrell@hotmail.com",
+            "address" => "661 Wolff Turnpike",
+            "phone" => "1-197-874-9978x7263",
+        ],
+    ];
 
 
     /**
      * Create test applicants
+     *
      * @dataProvider applicantInfoProvider
      */
     public function testAddApplicant($name, $email, $address, $phone)
@@ -58,10 +59,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $applicant = new Applicant([
             'email' => $email,
-            'name'  => $name,
+            'name' => $name,
             'address' => $address,
             'phone' => $phone,
-            'status' => 'created'
+            'status' => 'created',
         ], $client);
 
         $applicant = $applicant->create();
@@ -71,8 +72,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    public function applicantInfoProvider(){
-        return  self::$fakeApplicants;
+    public function applicantInfoProvider()
+    {
+        return self::$fakeApplicants;
     }
 
     /**
@@ -83,7 +85,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
         $params = new Applicant([
-            'email' => $email
+            'email' => $email,
         ]);
 
         $applicant = $client->searchApplicants($params);
@@ -101,9 +103,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
         $applicant = new Applicant([
-            'email' => $email
+            'email' => $email,
         ],
-        $client);
+            $client);
 
         $applicant = $applicant->fetch();
         $this->assertInstanceOf('Playbook\Applicant', $applicant, json_encode($applicant));
@@ -111,8 +113,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function validEmailProvider()
     {
-        return array_map(function($applicant){
-            return [ $applicant['email'] ];
+        return array_map(function ($applicant) {
+            return [$applicant['email']];
         }, self::$fakeApplicants);
     }
 
@@ -126,7 +128,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
         $params = new Applicant([
-            'email' => $email
+            'email' => $email,
         ]);
 
         $client->searchApplicants($params);
@@ -147,7 +149,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
         $params = new Applicant([
-            'email' => $email
+            'email' => $email,
         ]);
 
         $client->searchApplicants($params);
@@ -159,7 +161,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
 
-
     /**
      * @dataProvider validEmailProvider
      */
@@ -168,7 +169,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
         $applicant = new Applicant([
-            'email' => $email
+            'email' => $email,
         ], $client);
 
         $applicant = $applicant->fetch();
@@ -190,7 +191,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = new Client(self::PLAYBOOK_USER, self::PLAYBOOK_TOKEN);
 
-        foreach (self::$fakeApplicants as $v){
+        foreach (self::$fakeApplicants as $v) {
             $applicant = new Applicant($v, $client);
             $applicant->status = 'deleted';
             $applicant->save();

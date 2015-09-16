@@ -3,7 +3,8 @@
 use Faker\Factory;
 use Playbook\Applicant;
 
-class ApplicantTest extends \PHPUnit_Framework_TestCase {
+class ApplicantTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @dataProvider applicantProvider
@@ -11,7 +12,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
     public function testConstructor($name, $email, $zip)
     {
 
-        $applicant = new Applicant(["name"=>$name, 'email' => $email, "address_zip"=> $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals($email, $applicant->email);
         $this->assertEquals($name, $applicant->name);
@@ -26,7 +27,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
         $email = "testEmail@gmail.com";
         $name = "Test Applicant";
         $zip = 78756;
-        $applicant = new Applicant(["name"=>$name, 'email' => $email, "address_zip"=> $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals($email, $applicant->getEmail());
         $this->assertEquals($name, $applicant->getName());
@@ -42,7 +43,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
         $email = "testEmail@gmail.com";
         $name = "Test Applicant";
         $zip = 78756;
-        $applicant = new Applicant(["name"=>$name, 'email' => $email, "address_zip"=> $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals($email, $applicant->email);
         $this->assertEquals($name, $applicant->name);
@@ -50,13 +51,12 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-
     /**
      * @dataProvider applicantProvider
      */
     public function testValidators($name, $email, $zip)
     {
-        $applicant = new Applicant(["name"=>$name, 'email' => $email, "address_zip"=> $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals(true, $applicant->isValid());
 
@@ -64,6 +64,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * creates fake data
+     *
      * @return array
      */
     public function applicantProvider()
@@ -74,7 +75,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase {
             $resp[] = [
                 $faker->name,
                 $faker->email,
-                $faker->postcode
+                $faker->postcode,
             ];
         }
 

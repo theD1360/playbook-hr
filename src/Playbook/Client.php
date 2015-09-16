@@ -9,7 +9,8 @@ use Playbook\Exception\ApplicantNotFoundException;
 use Playbook\Exception\InvalidApplicantException;
 
 
-class Client {
+class Client
+{
 
     protected $client;
     protected $user;
@@ -22,14 +23,16 @@ class Client {
         $this->api_key = $api_key;
 
         $this->client = new GuzzleClient([
-            "base_uri" => $this->base_uri
+            "base_uri" => $this->base_uri,
         ]);
 
     }
 
     /**
      * searches playbook for a user matching the applicant object criteria
+     *
      * @param Applicant $applicant
+     *
      * @return mixed
      * @throws ApplicantNotFoundException
      * @throws \Exception
@@ -44,18 +47,18 @@ class Client {
         try {
             $response = $this->client->request("GET", '/api/v2/search', [
                 "auth" => [$this->user, $this->api_key],
-                "query" => $applicant->toArray()
+                "query" => $applicant->toArray(),
             ]);
         } catch (ClientException $e) {
             throw new \Exception($e->getMessage());
         } catch (ServerException $e) {
-            throw new \Exception("ERROR: ".$e->getMessage());
+            throw new \Exception("ERROR: " . $e->getMessage());
         }
 
         $body = $response->getBody();
-        $json = json_decode((string) $body, true);
+        $json = json_decode((string)$body, true);
 
-        if($json['found'] == false){
+        if ($json['found'] === false) {
             throw new ApplicantNotFoundException("Applicant was not found");
         }
 
@@ -65,30 +68,30 @@ class Client {
 
     /**
      * adds a applicant to playbook according to the applicant object values
+     *
      * @param Applicant $applicant
+     *
      * @return mixed
      * @throws \Exception
      */
     public function addApplicant(Applicant $applicant)
     {
 
-        if (!$applicant->isValid()) {
-            throw new InvalidApplicantException("Applicant is missing a required field");
-        }
+        $this->validateApplicant($applicant);
 
         try {
             $response = $this->client->request("POST", '/api/v2/applicants', [
                 "auth" => [$this->user, $this->api_key],
-                "form_params" => $applicant->toArray()
+                "form_params" => $applicant->toArray(),
             ]);
         } catch (ClientException $e) {
             throw new \Exception($e->getMessage());
         } catch (ServerException $e) {
-            throw new \Exception("ERROR: ".$e->getMessage());
+            throw new \Exception("ERROR: " . $e->getMessage());
         }
 
         $body = $response->getBody();
-        $json = json_decode((string) $body, true);
+        $json = json_decode((string)$body, true);
         $applicant->assignProps($json);
 
 
@@ -97,33 +100,45 @@ class Client {
 
     /**
      * updates an applicant in playbook. Must pass validations.
+     *
      * @param Applicant $applicant
+     *
      * @return mixed
      * @throws \Exception
      */
     public function updateApplicant(Applicant $applicant)
     {
 
-        if (!$applicant->isValid()) {
-            throw new InvalidApplicantException("Applicant is missing a required field");
-        }
+        $this->validateApplicant($applicant);
 
         try {
             $response = $this->client->request("PUT", '/api/v2/applicants', [
                 "auth" => [$this->user, $this->api_key],
-                "form_params" => $applicant->toArray()
+                "form_params" => $applicant->toArray(),
             ]);
         } catch (ClientException $e) {
             throw new \Exception($e->getMessage());
         } catch (ServerException $e) {
-            throw new \Exception("ERROR: ".$e->getMessage());
+            throw new \Exception("ERROR: " . $e->getMessage());
         }
 
         $body = $response->getBody();
-        $json = json_decode((string) $body, true);
+        $json = json_decode((string)$body, true);
         $applicant->assignProps($json);
 
         return $applicant->getNewInstance($applicant, $this);
+    }
+
+    /**
+     * check that our applicant is valid or throw our exception
+     *
+     * @param Applicant $applicant
+     */
+    private function validateApplicant(Applicant $applicant)
+    {
+        if (!$applicant->isValid()) {
+            throw new InvalidApplicantException("Applicant is missing a required field");
+        }
     }
 
 }
