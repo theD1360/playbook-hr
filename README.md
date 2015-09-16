@@ -1,6 +1,9 @@
 # playbook-hr
 PlaybookHR Client
 
+[![Code Climate](https://codeclimate.com/github/favordelivery/playbook-hr/badges/gpa.svg)](https://codeclimate.com/github/favordelivery/playbook-hr)
+[![Test Coverage](https://codeclimate.com/github/favordelivery/playbook-hr/badges/coverage.svg)](https://codeclimate.com/github/favordelivery/playbook-hr/coverage)
+
 ## Set up API client
 This will be passed to the applicant object to communicate with the API
 ```
