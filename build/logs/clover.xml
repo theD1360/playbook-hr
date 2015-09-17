@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1442446550">
-  <project timestamp="1442446550">
+<coverage generated="1442504476">
+  <project timestamp="1442504476">
     <package name="Playbook">
       <file name="/Users/diego/Favor/thirdparty/playbook-hr/src/Playbook/Applicant.php">
         <class name="Applicant" namespace="Playbook">
-          <metrics methods="13" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="50" elements="78" coveredelements="55"/>
+          <metrics methods="13" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="51" elements="78" coveredelements="56"/>
         </class>
         <line num="26" type="method" name="__construct" crap="2" count="71"/>
         <line num="28" type="stmt" count="71"/>
@@ -12,12 +12,12 @@
         <line num="31" type="stmt" count="24"/>
         <line num="32" type="stmt" count="24"/>
         <line num="34" type="stmt" count="71"/>
-        <line num="45" type="method" name="__call" crap="4.43" count="12"/>
-        <line num="47" type="stmt" count="10"/>
-        <line num="48" type="stmt" count="10"/>
-        <line num="49" type="stmt" count="10"/>
-        <line num="50" type="stmt" count="10"/>
-        <line num="51" type="stmt" count="0"/>
+        <line num="45" type="method" name="__call" crap="4.13" count="20"/>
+        <line num="47" type="stmt" count="20"/>
+        <line num="48" type="stmt" count="20"/>
+        <line num="49" type="stmt" count="20"/>
+        <line num="50" type="stmt" count="20"/>
+        <line num="51" type="stmt" count="10"/>
         <line num="53" type="stmt" count="10"/>
         <line num="54" type="stmt" count="10"/>
         <line num="56" type="stmt" count="0"/>
@@ -37,8 +37,8 @@
         <line num="95" type="stmt" count="0"/>
         <line num="96" type="stmt" count="71"/>
         <line num="99" type="stmt" count="71"/>
-        <line num="109" type="method" name="toSnakeCase" crap="1" count="10"/>
-        <line num="111" type="stmt" count="10"/>
+        <line num="109" type="method" name="toSnakeCase" crap="1" count="20"/>
+        <line num="111" type="stmt" count="20"/>
         <line num="121" type="method" name="toCamelCase" crap="1" count="71"/>
         <line num="123" type="stmt" count="71"/>
         <line num="124" type="stmt" count="71"/>
@@ -84,7 +84,7 @@
         <line num="222" type="stmt" count="24"/>
         <line num="230" type="method" name="toArray" crap="1" count="28"/>
         <line num="232" type="stmt" count="28"/>
-        <metrics loc="236" ncloc="160" classes="1" methods="13" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="50" elements="78" coveredelements="55"/>
+        <metrics loc="236" ncloc="160" classes="1" methods="13" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="51" elements="78" coveredelements="56"/>
       </file>
       <file name="/Users/diego/Favor/thirdparty/playbook-hr/src/Playbook/Client.php">
         <class name="Client" namespace="Playbook">
@@ -162,6 +162,6 @@
         <metrics loc="15" ncloc="9" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="4" loc="411" ncloc="293" classes="4" methods="18" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="115" coveredstatements="90" elements="133" coveredelements="96"/>
+    <metrics files="4" loc="411" ncloc="293" classes="4" methods="18" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="115" coveredstatements="91" elements="133" coveredelements="97"/>
   </project>
 </coverage>

@@ -43,7 +43,11 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
         $email = "testEmail@gmail.com";
         $name = "Test Applicant";
         $zip = 78756;
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $applicant = new Applicant();
+
+        $applicant->setName($name);
+        $applicant->setEmail($email);
+        $applicant->setAddressZip($zip);
 
         $this->assertEquals($email, $applicant->email);
         $this->assertEquals($name, $applicant->name);

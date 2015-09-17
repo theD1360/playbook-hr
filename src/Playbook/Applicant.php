@@ -23,7 +23,7 @@ class Applicant
 
     public $validationErrors;
 
-    public function __construct($props, Client $client = null)
+    public function __construct($props = [], Client $client = null)
     {
         $this->assignProps($props);
 
