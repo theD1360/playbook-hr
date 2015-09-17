@@ -131,6 +131,8 @@ class Applicant
         if ($this->client) {
             return $this->client->searchApplicants($this);
         }
+
+        return false;
     }
 
     /**
@@ -144,6 +146,8 @@ class Applicant
         if ($this->client) {
             return $this->client->addApplicant($this);
         }
+
+        return false;
     }
 
     /**
@@ -157,6 +161,8 @@ class Applicant
         if ($this->client) {
             return $this->client->updateApplicant($this);
         }
+
+        return false;
     }
 
     /**

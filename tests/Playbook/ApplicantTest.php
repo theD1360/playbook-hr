@@ -24,9 +24,6 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters($name, $email, $zip)
     {
-        $email = "testEmail@gmail.com";
-        $name = "Test Applicant";
-        $zip = 78756;
         $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals($email, $applicant->getEmail());
@@ -40,9 +37,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetters($name, $email, $zip)
     {
-        $email = "testEmail@gmail.com";
-        $name = "Test Applicant";
-        $zip = 78756;
+
         $applicant = new Applicant();
 
         $applicant->setName($name);
@@ -63,6 +58,64 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
         $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
 
         $this->assertEquals(true, $applicant->isValid());
+
+        $applicant->name = null;
+        $this->assertEquals(false, $applicant->isValid());
+
+        $applicant->name = $name;
+        $applicant->email = null;
+        $this->assertEquals(false, $applicant->isValid());
+
+        $applicant->name = null;
+        $applicant->email = null;
+        $this->assertEquals(false, $applicant->isValid());
+    }
+
+    /**
+     * @dataProvider applicantProvider
+     */
+    public function testGetNewInstance($name, $email, $zip)
+    {
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $newApplicant = $applicant->getNewInstance();
+
+        $this->assertInstanceOf('Playbook\Applicant', $newApplicant);
+        $this->assertEquals($name, $newApplicant->name);
+        $this->assertEquals($email, $newApplicant->email);
+        $this->assertEquals($zip, $newApplicant->address_zip);
+
+    }
+
+    /**
+     * @dataProvider applicantProvider
+     */
+    public function testFetchNoClient($name, $email, $zip)
+    {
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+
+        $this->assertEquals(false, $applicant->fetch());
+
+    }
+
+    /**
+     * @dataProvider applicantProvider
+     */
+    public function testSaveNoClient($name, $email, $zip)
+    {
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+
+        $this->assertEquals(false, $applicant->save());
+
+    }
+
+    /**
+     * @dataProvider applicantProvider
+     */
+    public function testCreateNoClient($name, $email, $zip)
+    {
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+
+        $this->assertEquals(false, $applicant->create());
 
     }
 
