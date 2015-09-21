@@ -3,7 +3,7 @@
   "description": "Playbook HR API client",
   "require": {
     "guzzlehttp/guzzle": "~6.0",
-    "wixel/gump": "dev-master"
+    "wixel/gump": "^1.3.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*",
