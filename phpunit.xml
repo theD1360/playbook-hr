@@ -18,4 +18,9 @@
         <log type="coverage-clover" target="./build/logs/clover.xml"/>
         <log type="coverage-html" target="./build/logs/html/"/>
     </logging>
+    <testsuites>
+        <testsuite name="AllTests">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
