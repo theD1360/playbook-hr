@@ -1,8 +1,11 @@
 language: php
 php:
-  - 5.5
-  - 5.6
-  - hhvm
-  - nightly
+- 5.5
+- 5.6
+- hhvm
+- nightly
 install:
-  - composer install
+- composer install
+notifications:
+  slack:
+    secure: s/laft+zEnzIV25TPo6JYef90zAYHyhi79+h0lPQYLhrEPBp+axEOCLErr36ncY3eDeqiqFyV34lM+aARCIJtZS8Dam2aRZ1O2CNFk6G5AtCDivuEA6Oit8jW62LIg+qHnzXdtj8N8u76fRWDzQrehXEWFjo0hyqSWi2OacTUleZfhs+9F7Wbl1y/FVefJU52cvWIEjiV2QKl5UakBRdMOEwrCsUe4u/I8oUZnNDoW8tbMMzn2uAJKcSnuymfhBOFC0B/8ty50PrAg1kahaQacFV87cE18BblOpxK6MRFXsJV3BNQl6spcxz/WLwJP2dDuxX0TFFzJUVvsXTLE8hvTBDRuewIsiV8oHE2jGOIgAo5URo2bMolMgKGmj7dipXU3y8l1bVyQyg4dBVQDqYlvl+qkN5Ensu7nXZgFBq6pu1MYvetALLE9/Rf4mvLAcpohVdNUgEdAFumz8byZfWAbzuuw0IPMSwuB7SP5ylelp+SqU2OCfdYL6zNgrNmZvcCpgzTjy+Fnm7tuBHdHZ8rY+QkvpghgFNUCWap6yspsDk9OJIR9Tk0ccp+2oRUXH/+CSS31g0hLbq2ILQN8N6R2BnlQoCI7Th4p1QNEGCnNzc+6VI6Lio9Ep+KzPCKInIH8aRqNbqx3/nwVlkily1TI7iXyzSHEldnjZAZuLOUo4=
