@@ -3,6 +3,7 @@
 namespace Favor\Playbook;
 
 use \Favor\Playbook\Interfaces\ClientInterface;
+use \Favor\Playbook\Exception\MethodNotFoundException;
 
 class Applicant
 {
@@ -53,8 +54,7 @@ class Applicant
                     break;
             }
         }
-
-        throw new \Exception("Method not found: $method");
+        throw new MethodNotFoundException("Method not found: $method");
     }
 
     /**

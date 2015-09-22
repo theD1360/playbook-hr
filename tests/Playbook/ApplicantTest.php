@@ -2,6 +2,7 @@
 
 use Faker\Factory;
 use Favor\Playbook\Applicant;
+use \Favor\Playbook\ExtendedApplicant;
 
 class ApplicantTest extends \PHPUnit_Framework_TestCase
 {
@@ -84,6 +85,30 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($email, $newApplicant->email);
         $this->assertEquals($zip, $newApplicant->address_zip);
 
+    }
+
+    /**
+     *
+     */
+    public function testAccessorMutator()
+    {
+        $applicant = new ExtendedApplicant([], $this->getClient());
+
+        $applicant->always_upper = "get as upper";
+        $this->assertEquals("GET AS UPPER", $applicant->always_upper);
+
+        $applicant->always_lower = "SET AS LOWER";
+        $this->assertEquals("set as lower", $applicant->always_lower);
+    }
+
+    /**
+     * @expectedException Favor\Playbook\Exception\MethodNotFoundException
+     */
+    public function testMethodNotFound()
+    {
+        $applicant = new ExtendedApplicant([], $this->getClient());
+
+        $applicant->thisMethodDoesntExist();
     }
 
 
