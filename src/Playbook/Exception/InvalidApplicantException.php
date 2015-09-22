@@ -6,7 +6,7 @@
  * Time: 4:26 PM
  */
 
-namespace Playbook\Exception;
+namespace Favor\Playbook\Exception;
 
 
 class InvalidApplicantException extends \InvalidArgumentException

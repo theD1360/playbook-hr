@@ -1,6 +1,6 @@
 <?php
 
-namespace Playbook;
+namespace Favor\Playbook;
 
 class Applicant
 {

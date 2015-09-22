@@ -1,7 +1,7 @@
 <?php
 
-use Playbook\Applicant;
-use Playbook\Client;
+use Favor\Playbook\Applicant;
+use Favor\Playbook\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,7 +66,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ], $client);
 
         $applicant = $applicant->create();
-        $this->assertInstanceOf('Playbook\Applicant', $applicant);
+        $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant);
         $this->assertNotEmpty($applicant->id);
 
 
@@ -89,7 +89,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $applicant = $client->searchApplicants($params);
-        $this->assertInstanceOf('Playbook\Applicant', $applicant, json_encode($applicant));
+        $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant, json_encode($applicant));
         $this->assertEquals(self::$fakeApplicants[$email]['name'], $applicant->name);
 
     }
@@ -108,7 +108,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $client);
 
         $applicant = $applicant->fetch();
-        $this->assertInstanceOf('Playbook\Applicant', $applicant, json_encode($applicant));
+        $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant, json_encode($applicant));
     }
 
     public function validEmailProvider()
@@ -119,7 +119,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Playbook\Exception\InvalidApplicantException
+     * @expectedException Favor\Playbook\Exception\InvalidApplicantException
      * @dataProvider invalidEmailProvider
      */
 
@@ -140,7 +140,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Playbook\Exception\ApplicantNotFoundException
+     * @expectedException Favor\Playbook\Exception\ApplicantNotFoundException
      * @dataProvider nonexistentEmailProvider
      */
 
@@ -178,7 +178,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $applicant = $applicant->save(); // save object with new value
 
-        $this->assertInstanceOf('Playbook\Applicant', $applicant);
+        $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant);
         $this->assertNotEmpty($applicant->id);
         $this->assertEquals("edited", $applicant->status);
     }

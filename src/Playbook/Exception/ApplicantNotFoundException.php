@@ -6,7 +6,7 @@
  * Time: 2:07 PM
  */
 
-namespace Playbook\Exception;
+namespace Favor\Playbook\Exception;
 
 class ApplicantNotFoundException extends \Exception
 {

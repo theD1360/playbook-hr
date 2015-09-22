@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Factory;
-use Playbook\Applicant;
+use Favor\Playbook\Applicant;
 
 class ApplicantTest extends \PHPUnit_Framework_TestCase
 {
@@ -79,7 +79,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
         $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
         $newApplicant = $applicant->getNewInstance();
 
-        $this->assertInstanceOf('Playbook\Applicant', $newApplicant);
+        $this->assertInstanceOf('Favor\Playbook\Applicant', $newApplicant);
         $this->assertEquals($name, $newApplicant->name);
         $this->assertEquals($email, $newApplicant->email);
         $this->assertEquals($zip, $newApplicant->address_zip);

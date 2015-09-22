@@ -1,12 +1,12 @@
 <?php
 
-namespace Playbook;
+namespace Favor\Playbook;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use Playbook\Exception\ApplicantNotFoundException;
-use Playbook\Exception\InvalidApplicantException;
+use Favor\Playbook\Exception\ApplicantNotFoundException;
+use Favor\Playbook\Exception\InvalidApplicantException;
 
 
 class Client
