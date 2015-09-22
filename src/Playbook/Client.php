@@ -8,7 +8,7 @@ use Favor\Playbook\Exception\ApplicantNotFoundException;
 use Favor\Playbook\Exception\InvalidApplicantException;
 use Favor\Playbook\Interfaces\ClientInterface;
 
-
+use GuzzleHttp\Exception\GuzzleException;
 
 class Client implements ClientInterface
 {
@@ -58,7 +58,7 @@ class Client implements ClientInterface
             throw new ApplicantNotFoundException("Applicant was not found");
         }
 
-        return $applicant->getNewInstance(array_filter($props['applicant']), $this);
+        return $applicant->getNewInstance($props['applicant'], $this);
 
     }
 
@@ -123,7 +123,7 @@ class Client implements ClientInterface
         try {
             $response = $this->client->request($method, $url, $options);
 
-        } catch (\Exception $e) {
+        } catch (GuzzleException $e) {
             throw new HttpRequestException($e->getMessage(), $e->getCode(), $e);
         }
 

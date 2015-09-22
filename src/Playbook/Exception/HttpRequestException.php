@@ -9,7 +9,7 @@
 namespace Favor\Playbook\Exception;
 
 
-class HttpRequestException extends \Exception
+class HttpRequestException extends \RuntimeException
 {
 
 }

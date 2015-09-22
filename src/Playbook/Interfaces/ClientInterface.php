@@ -17,7 +17,7 @@ interface ClientInterface
      *
      * @param Applicant $applicant
      *
-     * @return mixed
+     * @return Applicant
      * @throws ApplicantNotFoundException
      * @throws \Exception
      */
@@ -28,7 +28,7 @@ interface ClientInterface
      *
      * @param Applicant $applicant
      *
-     * @return mixed
+     * @return Applicant
      * @throws \Exception
      */
     public function addApplicant(Applicant $applicant);
@@ -38,7 +38,7 @@ interface ClientInterface
      *
      * @param Applicant $applicant
      *
-     * @return mixed
+     * @return Applicant
      * @throws \Exception
      */
     public function updateApplicant(Applicant $applicant);
