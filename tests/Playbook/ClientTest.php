@@ -86,7 +86,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $params = new Applicant([
             'email' => $email,
-        ]);
+        ], $client);
 
         $applicant = $client->searchApplicants($params);
         $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant, json_encode($applicant));
@@ -104,8 +104,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $applicant = new Applicant([
             'email' => $email,
-        ],
-            $client);
+        ], $client);
 
         $applicant = $applicant->fetch();
         $this->assertInstanceOf('Favor\Playbook\Applicant', $applicant, json_encode($applicant));
@@ -129,7 +128,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $params = new Applicant([
             'email' => $email,
-        ]);
+        ], $client);
 
         $client->searchApplicants($params);
     }
@@ -150,7 +149,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $params = new Applicant([
             'email' => $email,
-        ]);
+        ], $client);
 
         $client->searchApplicants($params);
     }

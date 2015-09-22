@@ -3,29 +3,35 @@
 namespace Favor\Playbook;
 
 use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
+use Favor\Playbook\Exception\HttpRequestException;
 use Favor\Playbook\Exception\ApplicantNotFoundException;
 use Favor\Playbook\Exception\InvalidApplicantException;
+use Favor\Playbook\Interfaces\ClientInterface;
 
 
-class Client
+
+class Client implements ClientInterface
 {
 
     protected $client;
     protected $user;
     protected $api_key;
-    protected $base_uri = "https://www.playbookhr.com";
+    protected $base_uri = "https://workforce.intuit.com";
 
-    public function __construct($user, $api_key)
+    public function __construct($user, $api_key, $options = [])
     {
         $this->user = $user;
         $this->api_key = $api_key;
 
-        $this->client = new GuzzleClient([
-            "base_uri" => $this->base_uri,
-        ]);
-
+        $this->client = new GuzzleClient(
+            array_merge(
+                [
+                    'base_uri' => $this->base_uri,
+                    "auth" => [$this->user, $this->api_key],
+                ],
+                $options
+            )
+        );
     }
 
     /**
@@ -44,25 +50,15 @@ class Client
             throw new InvalidApplicantException("Applicant is missing a required field");
         }
 
-        try {
-            $response = $this->client->request("GET", '/api/v2/search', [
-                "auth" => [$this->user, $this->api_key],
-                "query" => $applicant->toArray(),
-            ]);
-        } catch (ClientException $e) {
-            throw new \Exception($e->getMessage());
-        } catch (ServerException $e) {
-            throw new \Exception("ERROR: " . $e->getMessage());
-        }
+        $props = $this->guzzleRequest("GET", '/api/v2/search', [
+            "query" => $applicant->toArray(),
+        ]);
 
-        $body = $response->getBody();
-        $json = json_decode((string)$body, true);
-
-        if ($json['found'] === false) {
+        if ($props['found'] === false) {
             throw new ApplicantNotFoundException("Applicant was not found");
         }
 
-        return $applicant->getNewInstance(array_filter($json['applicant']), $this);
+        return $applicant->getNewInstance(array_filter($props['applicant']), $this);
 
     }
 
@@ -79,21 +75,11 @@ class Client
 
         $this->validateApplicant($applicant);
 
-        try {
-            $response = $this->client->request("POST", '/api/v2/applicants', [
-                "auth" => [$this->user, $this->api_key],
-                "form_params" => $applicant->toArray(),
-            ]);
-        } catch (ClientException $e) {
-            throw new \Exception($e->getMessage());
-        } catch (ServerException $e) {
-            throw new \Exception("ERROR: " . $e->getMessage());
-        }
+        $props = $this->guzzleRequest("POST", '/api/v2/applicants', [
+            "form_params" => $applicant->toArray(),
+        ]);
 
-        $body = $response->getBody();
-        $json = json_decode((string)$body, true);
-        $applicant->assignProps($json);
-
+        $applicant->assignProps($props);
 
         return $applicant->getNewInstance($applicant, $this);
     }
@@ -111,20 +97,11 @@ class Client
 
         $this->validateApplicant($applicant);
 
-        try {
-            $response = $this->client->request("PUT", '/api/v2/applicants', [
-                "auth" => [$this->user, $this->api_key],
-                "form_params" => $applicant->toArray(),
-            ]);
-        } catch (ClientException $e) {
-            throw new \Exception($e->getMessage());
-        } catch (ServerException $e) {
-            throw new \Exception("ERROR: " . $e->getMessage());
-        }
+        $props = $this->guzzleRequest("PUT", '/api/v2/applicants', [
+            "form_params" => $applicant->toArray(),
+        ]);
 
-        $body = $response->getBody();
-        $json = json_decode((string)$body, true);
-        $applicant->assignProps($json);
+        $applicant->assignProps($props);
 
         return $applicant->getNewInstance($applicant, $this);
     }
@@ -140,6 +117,21 @@ class Client
             throw new InvalidApplicantException("Applicant is missing a required field");
         }
     }
+
+    private function guzzleRequest($method, $url, $options = [])
+    {
+        try {
+            $response = $this->client->request($method, $url, $options);
+
+        } catch (\Exception $e) {
+            throw new HttpRequestException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        $body = $response->getBody();
+        $json = json_decode((string)$body, true);
+        return $json;
+    }
+
 
 }
 

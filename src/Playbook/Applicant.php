@@ -2,6 +2,8 @@
 
 namespace Favor\Playbook;
 
+use \Favor\Playbook\Interfaces\ClientInterface;
+
 class Applicant
 {
 
@@ -23,14 +25,10 @@ class Applicant
 
     public $validationErrors;
 
-    public function __construct($props = [], Client $client = null)
+    public function __construct($props = [], ClientInterface $client)
     {
         $this->assignProps($props);
-
-        if ($client) {
-            $this->client = $client;
-        }
-
+        $this->client = $client;
     }
 
     /**
@@ -128,11 +126,7 @@ class Applicant
 
     public function fetch()
     {
-        if ($this->client) {
-            return $this->client->searchApplicants($this);
-        }
-
-        return false;
+        return $this->client->searchApplicants($this);
     }
 
     /**
@@ -143,11 +137,7 @@ class Applicant
      */
     public function create()
     {
-        if ($this->client) {
-            return $this->client->addApplicant($this);
-        }
-
-        return false;
+        return $this->client->addApplicant($this);
     }
 
     /**
@@ -158,11 +148,7 @@ class Applicant
      */
     public function save()
     {
-        if ($this->client) {
-            return $this->client->updateApplicant($this);
-        }
-
-        return false;
+        return $this->client->updateApplicant($this);
     }
 
     /**

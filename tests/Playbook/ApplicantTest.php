@@ -12,7 +12,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
     public function testConstructor($name, $email, $zip)
     {
 
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip], $this->getClient());
 
         $this->assertEquals($email, $applicant->email);
         $this->assertEquals($name, $applicant->name);
@@ -24,7 +24,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetters($name, $email, $zip)
     {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip], $this->getClient());
 
         $this->assertEquals($email, $applicant->getEmail());
         $this->assertEquals($name, $applicant->getName());
@@ -38,7 +38,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
     public function testSetters($name, $email, $zip)
     {
 
-        $applicant = new Applicant();
+        $applicant = new Applicant([], $this->getClient());
 
         $applicant->setName($name);
         $applicant->setEmail($email);
@@ -55,7 +55,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidators($name, $email, $zip)
     {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip], $this->getClient());
 
         $this->assertEquals(true, $applicant->isValid());
 
@@ -76,7 +76,7 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNewInstance($name, $email, $zip)
     {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
+        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip], $this->getClient());
         $newApplicant = $applicant->getNewInstance();
 
         $this->assertInstanceOf('Favor\Playbook\Applicant', $newApplicant);
@@ -86,38 +86,6 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @dataProvider applicantProvider
-     */
-    public function testFetchNoClient($name, $email, $zip)
-    {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
-
-        $this->assertEquals(false, $applicant->fetch());
-
-    }
-
-    /**
-     * @dataProvider applicantProvider
-     */
-    public function testSaveNoClient($name, $email, $zip)
-    {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
-
-        $this->assertEquals(false, $applicant->save());
-
-    }
-
-    /**
-     * @dataProvider applicantProvider
-     */
-    public function testCreateNoClient($name, $email, $zip)
-    {
-        $applicant = new Applicant(["name" => $name, 'email' => $email, "address_zip" => $zip]);
-
-        $this->assertEquals(false, $applicant->create());
-
-    }
 
     /**
      * creates fake data
@@ -137,6 +105,11 @@ class ApplicantTest extends \PHPUnit_Framework_TestCase
         }
 
         return $resp;
+    }
+
+    private function getClient()
+    {
+        return new \Favor\Playbook\Client(ClientTest::PLAYBOOK_USER, ClientTest::PLAYBOOK_TOKEN);
     }
 
 }
