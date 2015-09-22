@@ -9,7 +9,7 @@
 namespace Favor\Playbook\Exception;
 
 
-class MethodNotFoundException extends \RuntimeException
+class MethodNotFoundException extends \BadMethodCallException
 {
 
 }

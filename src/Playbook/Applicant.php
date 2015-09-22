@@ -203,7 +203,6 @@ class Applicant
      */
     public function getNewInstance($newProps = [], Client $client = null)
     {
-        $class_name = get_called_class();
         if (empty($newProps)) {
             $newProps = $this->props;
         }
@@ -211,7 +210,7 @@ class Applicant
             $client = $this->client;
         }
 
-        return new $class_name($newProps, $client);
+        return new static($newProps, $client);
     }
 
     /**
